@@ -1,0 +1,260 @@
+# YAML default config file for multimodalecho project
+# This file stores all default values 
+# and can be used as a template for new config files.
+
+# extract_videos and extract_Mmode
+# ================================================================= #
+extract_videos:
+  # directory where Videos folder is stored
+  # default: /cluster/dataset/vogtlab/Projects/EchoNet/
+  data_dir: "/cluster/dataset/vogtlab/Projects/EchoNet/"
+  # directory where output should be stored
+  # default: None (is set in script depending on other params)
+  output: null
+  # split ("all", "TRAIN", "VAL", "TEST") to perform operations on
+  # default: all
+  split: all
+  # length which videos should be cut to (shorter videos are discarded)
+  # default: 112
+  length: 112
+
+extract_Mmode:
+  # directory where Videos folder is stored
+  # default: /cluster/dataset/vogtlab/Projects/EchoNet/
+  data_dir: "/cluster/dataset/vogtlab/Projects/EchoNet/"
+  # directory where output should be stored
+  # default: None (is set in script depending on other params)
+  output: null
+  # split ("all", "TRAIN", "VAL", "TEST") to perform operations on
+  # default: all
+  split: all
+  # type of axes to extract ("default", "informed", "random")
+  # default: default
+  axis: default
+  # number of M-modes to extract
+  # default: 2
+  num_modes: 2
+  # width of resulting M-mode images
+  # default: 112
+  width: 112
+  # seed for random number generators
+  # default: 0
+  seed: 0
+
+# run_model
+# ================================================================= #
+run_model:
+  # directory where Videos folder is stored
+  # default: /cluster/dataset/vogtlab/Projects/EchoNet/
+  data_dir: "/cluster/dataset/vogtlab/Projects/EchoNet/"
+  # directory where output should be stored
+  # default: None (is set in script depending on other params)
+  output: null
+  # specifies model type to run
+  # default: 2d_resnet34
+  model_type: "2d_resnet34"
+  # whether to use pretrained weights (available only for 2d models)
+  # default: False
+  pretrained: False
+  # whether to perform classification (as opposed to regression)
+  # default: False
+  classification: False
+  # datatype of input data (one of "tensors", "videos", "images")
+  # default: "videos"
+  datatype: "videos"
+  # threshold to use for classification
+  # default: 50
+  thresh: 50
+  # number of epochs
+  # default: 90
+  num_epochs: 90
+  # learning rate
+  # default: 1e-4
+  lr: 0.0001
+  # step size to use for lr scheduler
+  # default: 15
+  step_size: 15
+  # batch size to use during TRAIN and VAL
+  # default: 64
+  batch_size: 64
+  # whether to extract frames (as opposed to M-modes)
+  # default: False
+  frames: False
+  # axis to use for M-mode extraction
+  # "default" creates linearly spaced angles around the vertical axis
+  # "informed" creates linearly spaced angles around the axis through the left ventricle
+  # "random_start" creates linearly spaced angles around a random starting axis
+  # "random" leads to randomly selected angles
+  # default: "default"
+  axis: "default"
+  # number of modes (frames or M-modes) to extract
+  # default: 2
+  num_modes: 2
+  # width of M-mode images
+  # default 112 (resulting in square 112x112 inputs)
+  width: 112
+  # whether to perform feature selection (currently removes image with specified index)
+  # default: None
+  feature_selection: null
+  # which type of curriculum learning to perform (if any)
+  # default: None
+  curriculum: null
+  # number of warmup epochs for self-paced learning
+  # default: 5
+  spl_warmup: 5
+  # initial loss threshold for self-paced learning
+  # default: 100
+  spl_thresh: 100
+  # threshold growing factor for self-paced learning
+  # default: 1.3
+  spl_factor: 1.3
+  # quantile to be used for self-paced learning (alternative to the other three params)
+  # default: 0.75
+  spl_quantile: 0.75
+  # initial fraction of train size to use for training
+  # default: 0.2
+  init_fraction: 0.2
+  # fraction of total epochs after which the entire train set is used for training
+  # default: 0.8
+  epoch_fraction: 0.8
+  # device to run computations on 
+  # default: None (runs on CUDA whenever available)
+  device: null
+  # global random seed for numpy and torch
+  # default: 0
+  seed: 0
+  # whether to record tensorboard data (TRAIN and VAL loss over epochs)
+  # default: False
+  tensorboard: False
+
+# collect_results
+# ================================================================= #
+collect_results:
+  # directory where Videos folder is stored
+  # default: output
+  data_dir: "output"
+  # directory where output should be stored
+  # default: None (is set in script depending on other params)
+  output: null
+  # whether to produce plots
+  # default: True
+  plot: True
+  # whether to print table
+  # default: True
+  table: True
+  # if specified, only results from this model type are collected
+  # default: None (means all model types)
+  model_type: null
+  # if specified, only relevant results are collected
+  # default: None
+  pretrained: null
+    # if specified, only relevant results are collected
+  # default: None
+  classification: None
+  # threshold to use for classification
+  # default: 50
+  thresh: 50
+  # number of epochs
+  # default: 90
+  num_epochs: 90
+  # learning rate
+  # default: 1e-4
+  lr: 0.0001
+  # step size to use for lr scheduler
+  # default: 15
+  step_size: 15
+  # batch size to use during TRAIN and VAL
+  # default: 64
+  batch_size: 64
+  # if specified, only relevant results are collected
+  # default: None
+  axis: null
+  # if specified, only relevant results are collected
+  # default: None
+  feature_selection: null
+  # if specified, only relevant results are collected
+  # default: None
+  curriculum: null
+  # if specified, only relevant results are collected
+  # default: None
+  spl_warmup: null
+  # if specified, only relevant results are collected
+  # default: None
+  spl_thresh: null
+  # if specified, only relevant results are collected
+  # default: None
+  spl_factor: null
+  # quantile to be used for self-paced learning (alternative to the other three params)
+  # default: None
+  spl_quantile: null
+  # if specified, only relevant results are collected
+  # default: None
+  init_fraction: null
+  # if specified, only relevant results are collected
+  # default: None
+  epoch_fraction: null
+  # global random seed for numpy and torch
+  # default: 0
+  seed: 0
+
+
+# epoch_plots
+# ================================================================= #
+epoch_plots:
+  # directory where Videos folder is stored
+  # default: output
+  data_dir: "output"
+  # directory where output should be stored
+  # default: None (is set in script depending on other params)
+  output: "plots"
+  # if specified, only results from this model type are collected
+  # default: None (means all model types)
+  model_type: null
+  # if specified, only relevant results are collected
+  # default: None
+  pretrained: null
+    # if specified, only relevant results are collected
+  # default: None
+  classification: None
+  # learning rate
+  # default: 1e-4
+  lr: 0.0001
+  # step size to use for lr scheduler
+  # default: 15
+  step_size: 15
+  # batch size to use during TRAIN and VAL
+  # default: 64
+  batch_size: 64
+  # if specified, only relevant results are collected
+  # default: None
+  axis: null
+  # if specified, only relevant results are collected
+  # default: None
+  num_modes: null
+  # if specified, only relevant results are collected
+  # default: None
+  feature_selection: null
+  # if specified, only relevant results are collected
+  # default: None
+  curriculum: null
+  # if specified, only relevant results are collected
+  # default: None
+  spl_warmup: null
+  # if specified, only relevant results are collected
+  # default: None
+  spl_thresh: null
+  # if specified, only relevant results are collected
+  # default: None
+  spl_factor: null
+  # quantile to be used for self-paced learning (alternative to the other three params)
+  # default: None
+  spl_quantile: null
+  # if specified, only relevant results are collected
+  # default: None
+  init_fraction: null
+  # if specified, only relevant results are collected
+  # default: None
+  epoch_fraction: null
+  # global random seed for numpy and torch
+  # default: 0
+  seed: 0
